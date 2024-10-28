@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { Cat } from "./components/cat";
+import ParticleEffects from './components/ParticleEffects';
 
 function App() {
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false
+      }
+    }
+  });
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <QueryClientProvider client={client}>
+        <ParticleEffects />
+        <div className="main-container">
+          <header className="header">
+            <h1>Puss'y facts</h1>
+            <p className="subtitle">Discover amazing facts about our feline friends</p>
+          </header>
+          <Cat />
+          <footer className="footer">
+            <p>Made with 🐱 love</p>
+          </footer>
+        </div>
+      </QueryClientProvider>
     </div>
   );
 }

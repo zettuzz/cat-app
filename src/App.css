@@ -1,38 +1,195 @@
-.App {
-  text-align: center;
+/* Base styles */
+:root {
+  --primary-color: #ff9aa2;
+  --primary-dark: #ff6f61;
+  --background-color: #ffe8ea;
+  --container-bg: rgba(254, 246, 228, 0.9);
+  --text-color: #333;
+  --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  font-family: 'Roboto', sans-serif;
   min-height: 100vh;
+  color: var(--text-color);
+}
+
+.App {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header styles */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px 0;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px var(--shadow-color);
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-top: 10px;
+}
+
+/* Cat container styles */
+.cat-container {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: var(--container-bg);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  overflow: hidden;
+  padding: clamp(20px, 4vw, 40px);
+  margin: 20px auto;
+  max-width: 600px;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cat-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
+.cat-container::before {
+  content: "";
+  background: url('https://www.svgrepo.com/show/448152/cat-silhouette.svg') no-repeat center/contain;
+  opacity: 0.15;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cat-container:hover::before {
+  opacity: 0.2;
+}
+
+h2 {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--text-color);
+  text-align: center;
+  z-index: 1;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+button {
+  background-color: var(--primary-color);
   color: white;
+  border: none;
+  border-radius: 12px;
+  padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 30px);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(255, 154, 162, 0.3);
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 154, 162, 0.4);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+button:active {
+  transform: translateY(0);
+}
+
+/* Footer styles */
+.footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 15px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .cat-container {
+    margin: 15px auto;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    margin-bottom: 20px;
+  }
+  
+  .cat-container {
+    border-radius: 15px;
+    margin: 10px auto;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #2a2a2a;
+    --container-bg: rgba(254, 246, 228, 0.95);
+    --text-color: #f5f5f5;
+  }
+  
+  .cat-container {
+    --text-color: #333;
   }
 }
